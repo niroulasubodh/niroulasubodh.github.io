@@ -327,13 +327,19 @@
             color: white;
         }
 
-        .cv-dropdown:hover .cv-dropdown-content {
+        .cv-dropdown:hover .cv-dropdown-content,
+        .cv-dropdown:focus-within .cv-dropdown-content {
             display: block;
         }
 
-        .cv-dropdown:hover .cv-btn {
+        .cv-dropdown:hover .cv-btn,
+        .cv-dropdown:focus-within .cv-btn {
             background: var(--primary);
             color: white;
+        }
+
+        .cv-dropdown-content a:active {
+            background-color: var(--secondary);
         }
 
         .hero-image-container {
@@ -475,7 +481,8 @@
             text-align: center;
             border-radius: 30px;
             padding: 5rem 2rem;
-            margin: 2rem;
+            margin: 2rem auto;
+            max-width: 1200px;
         }
 
         #contact .section-title {
@@ -749,10 +756,10 @@
                 </p>
                 
                 <div class="cta-buttons">
-                    <a href="#about" class="btn btn-primary">Learn More →</a>
+                    <a href="#about" class="btn btn-primary" onclick="smoothScroll(event, '#about')">Learn More →</a>
                     <div class="cv-dropdown">
-                        <button class="btn btn-secondary cv-btn">CV ▼</button>
-                        <div class="cv-dropdown-content">
+                        <button class="btn btn-secondary cv-btn" onclick="toggleCVDropdown(event)">CV ▼</button>
+                        <div class="cv-dropdown-content" id="cvDropdown">
                             <a href="Subodh_CV.pdf" target="_blank">View PDF</a>
                             <a href="Subodh_CV.pdf" download>Download</a>
                         </div>
@@ -870,6 +877,30 @@
     <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
 
     <script>
+        // Smooth scroll for anchor links
+        function smoothScroll(e, target) {
+            e.preventDefault();
+            document.querySelector(target).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // CV Dropdown Toggle for mobile
+        function toggleCVDropdown(e) {
+            e.stopPropagation();
+            const dropdown = document.getElementById('cvDropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            const dropdown = document.getElementById('cvDropdown');
+            const cvBtn = document.querySelector('.cv-btn');
+            if (!cvBtn.contains(e.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+
         // Mobile Menu Toggle
         function toggleMobileMenu() {
             const mobileNav = document.getElementById('mobileNav');
