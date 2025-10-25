@@ -30,6 +30,35 @@
             background: var(--light);
         }
 
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
         /* Navigation */
         nav {
             position: fixed;
@@ -75,6 +104,87 @@
 
         .nav-links a:hover {
             color: var(--primary);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 70%;
+            max-width: 300px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.1);
+            transition: right 0.3s ease;
+            z-index: 1001;
+        }
+
+        .mobile-nav.active {
+            right: 0;
+        }
+
+        .mobile-nav-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mobile-nav-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+            padding: 1rem 0;
+        }
+
+        .mobile-nav-links a {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .mobile-nav-links a:hover {
+            background: var(--light);
+            color: var(--primary);
+        }
+
+        .mobile-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-overlay.active {
+            opacity: 1;
         }
 
         /* Hero Section */
@@ -155,12 +265,15 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
             box-shadow: 0 10px 30px rgba(16,185,129,0.3);
         }
 
         .btn-primary:hover {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
             transform: translateY(-3px);
             box-shadow: 0 15px 40px rgba(16,185,129,0.4);
         }
@@ -172,6 +285,53 @@
         }
 
         .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* CV Dropdown */
+        .cv-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .cv-btn {
+            cursor: pointer;
+            border: none;
+        }
+
+        .cv-dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            border-radius: 15px;
+            z-index: 1;
+            top: 110%;
+            left: 0;
+            overflow: hidden;
+        }
+
+        .cv-dropdown-content a {
+            color: var(--dark);
+            padding: 12px 20px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .cv-dropdown-content a:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .cv-dropdown:hover .cv-dropdown-content {
+            display: block;
+        }
+
+        .cv-dropdown:hover .cv-btn {
             background: var(--primary);
             color: white;
         }
@@ -189,6 +349,12 @@
             object-fit: cover;
             box-shadow: 0 20px 60px rgba(0,0,0,0.15);
             border: 8px solid white;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hero-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 25px 70px rgba(0,0,0,0.2);
         }
 
         /* About Section */
@@ -243,7 +409,18 @@
             border-radius: 20px;
             border: 2px solid #e5e7eb;
             transition: all 0.3s;
+            opacity: 0;
+            transform: translateY(20px);
         }
+
+        .skill-card.visible {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .skill-card:nth-child(1) { animation-delay: 0.1s; }
+        .skill-card:nth-child(2) { animation-delay: 0.2s; }
+        .skill-card:nth-child(3) { animation-delay: 0.3s; }
+        .skill-card:nth-child(4) { animation-delay: 0.4s; }
 
         .skill-card:hover {
             transform: translateY(-5px);
@@ -343,6 +520,36 @@
             font-weight: 500;
         }
 
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(16,185,129,0.4);
+            transition: all 0.3s;
+            z-index: 999;
+        }
+
+        .back-to-top.visible {
+            display: flex;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(16,185,129,0.5);
+        }
+
         /* Footer */
         footer {
             background: var(--dark);
@@ -390,6 +597,8 @@
 
             .hero-image-container {
                 margin: 0 auto;
+                width: 300px;
+                height: 300px;
             }
 
             .nav-links {
@@ -399,11 +608,27 @@
             .section-title {
                 font-size: 2.5rem;
             }
+
+            .cta-buttons {
+                justify-content: center;
+            }
         }
 
         @media (max-width: 600px) {
             .nav-links {
                 display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .mobile-nav {
+                display: block;
+            }
+
+            .mobile-overlay {
+                display: block;
             }
 
             .hero {
@@ -414,8 +639,67 @@
                 font-size: 2rem;
             }
 
+            .hero-content .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .hero-image-container {
+                width: 250px;
+                height: 250px;
+            }
+
             .cta-buttons {
                 flex-direction: column;
+                align-items: stretch;
+            }
+
+            .cv-dropdown {
+                width: 100%;
+            }
+
+            .cv-btn {
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .about-content {
+                padding: 2rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-methods {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contact-card {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            #contact {
+                margin: 1rem;
+                padding: 3rem 1.5rem;
+            }
+
+            .back-to-top {
+                bottom: 1rem;
+                right: 1rem;
             }
         }
     </style>
@@ -431,28 +715,52 @@
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
         </div>
     </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-header">
+            <div class="logo">Menu</div>
+            <button class="mobile-nav-close" onclick="closeMobileMenu()">✕</button>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="#home" onclick="closeMobileMenu()">Home</a></li>
+            <li><a href="#about" onclick="closeMobileMenu()">About</a></li>
+            <li><a href="#skills" onclick="closeMobileMenu()">Skills</a></li>
+            <li><a href="#contact" onclick="closeMobileMenu()">Contact</a></li>
+        </ul>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-container">
-            <div class="hero-content">
-                <div class="hero-badge">🇳🇵 From Nepal | 🧬 Bioinformatics Student</div>
+            <div class="hero-content fade-in-up">
+                <div class="hero-badge">🇳🇵 From Nepal | 🧬 Life Sciences Student</div>
                 <h1>Hi, I'm <span class="highlight">Subodh Niroula</span></h1>
-                <p class="subtitle">Bioinformatics & Computational Biology</p>
+                <p class="subtitle">Bioinformatics and Computational Biology Researcher</p>
                 
                 <p>
-                    I'm from Nepal and passionate about bioinformatics. My research interests lie at the intersection of genomics, statistical modeling, and systems biology, with a particular focus on cancer biology and transcriptional regulation.
+                    I'm an aspiring Ph.D. student in Bioinformatics, passionate about integrating computational and biological sciences to study gene regulation and disease mechanisms. My research interests lie at the intersection of genomics, statistical modeling, and systems biology, with a particular focus on cancer biology and transcriptional regulation.
                 </p>
                 
                 <div class="cta-buttons">
                     <a href="#about" class="btn btn-primary">Learn More →</a>
-                    <a href="Subodh_CV.pdf" class="btn btn-secondary" download>Download CV</a>
+                    <div class="cv-dropdown">
+                        <button class="btn btn-secondary cv-btn">CV ▼</button>
+                        <div class="cv-dropdown-content">
+                            <a href="Subodh_CV.pdf" target="_blank">View PDF</a>
+                            <a href="Subodh_CV.pdf" download>Download</a>
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <div class="hero-image-container">
+            <div class="hero-image-container fade-in">
                 <img src="profile.jpg" alt="Subodh Niroula" class="hero-image">
             </div>
         </div>
@@ -466,13 +774,13 @@
         
         <div class="about-content">
             <p>
-                My passion for bioinformatics began during my first year at Soka University of America, when I created a simple Python program to convert RNA sequences to protein sequences. This initial spark grew into a sustained passion as I continued to find opportunities to integrate computation across scientific disciplines.
+                I'm Subodh Niroula, a first-generation student from Nepal and a senior Life Sciences undergraduate at Soka University of America.
             </p>
             <p>
-                From analyzing glucose sensor data at Equilibrio startup to investigating cancer metastasis at UCI Health, my journey has been driven by curiosity and a commitment to using computational approaches to advance biomedical research.
+                Currently, I am conducting a comparative transcriptomic analysis of UHRF1's role in osteosarcoma and small-cell lung cancer, focusing on identifying shared and cancer-specific regulatory programs.
             </p>
             <p>
-                Currently, I'm conducting comparative transcriptomic analysis of UHRF1's role in osteosarcoma and small-cell lung cancer for my senior thesis at Soka University of America.
+                My goal is to lead research that bridges data-driven modeling with biological discovery to improve human health. I aspire to develop computational frameworks that integrate multi-omics data to uncover the molecular mechanisms driving diseases like cancer. By connecting computational innovation with biological insight, I hope to contribute to the advancement of personalized and precision medicine.
             </p>
         </div>
     </section>
@@ -480,7 +788,7 @@
     <!-- Skills Section -->
     <section id="skills">
         <div class="section-header">
-            <h2 class="section-title">Skills & Technologies</h2>
+            <h2 class="section-title">Skills</h2>
         </div>
         
         <div class="skills-grid">
@@ -495,22 +803,32 @@
             </div>
             
             <div class="skill-card">
-                <h3><span class="skill-icon">🧬</span> Bioinformatics</h3>
+                <h3><span class="skill-icon">🧬</span> Bioinformatics & Omics Analysis</h3>
                 <ul class="skill-list">
-                    <li>BLAST</li>
-                    <li>Bioconductor</li>
-                    <li>Galaxy</li>
-                    <li>RNA-seq Analysis</li>
+                    <li>Transcriptomics</li>
+                    <li>Differential Expression</li>
+                    <li>Pathway Enrichment</li>
+                    <li>Galaxy, Blast</li>
                 </ul>
             </div>
             
             <div class="skill-card">
-                <h3><span class="skill-icon">📊</span> Data Analysis</h3>
+                <h3><span class="skill-icon">📊</span> Statistical & Data Analysis</h3>
                 <ul class="skill-list">
-                    <li>Pandas/NumPy</li>
-                    <li>Statistical Modeling</li>
-                    <li>Genomic Analysis</li>
+                    <li>Regression</li>
+                    <li>ANOVA</li>
+                    <li>Hypothesis Testing</li>
                     <li>Data Visualization</li>
+                </ul>
+            </div>
+            
+            <div class="skill-card">
+                <h3><span class="skill-icon">🔬</span> Laboratory Techniques</h3>
+                <ul class="skill-list">
+                    <li>Cell Culture</li>
+                    <li>PCR</li>
+                    <li>Western Blot</li>
+                    <li>CRISPR Knockout Generation</li>
                 </ul>
             </div>
         </div>
@@ -547,6 +865,62 @@
         <p style="font-size: 1.1rem; margin-bottom: 1rem;">Subodh Niroula</p>
         <p style="color: #64748b;">&copy; 2025 Subodh Niroula. All rights reserved.</p>
     </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            const overlay = document.getElementById('mobileOverlay');
+            mobileNav.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            const overlay = document.getElementById('mobileOverlay');
+            mobileNav.classList.remove('active');
+            overlay.classList.remove('active');
+        }
+
+        // Back to Top Button
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Skill Cards Animation on Scroll
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.skill-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
 
 </body>
 </html>
