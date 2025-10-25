@@ -32,32 +32,17 @@
 
         /* Animations */
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        .fade-in {
-            animation: fadeIn 0.8s ease-out;
-        }
-
-        .fade-in-up {
-            animation: fadeInUp 0.8s ease-out;
-        }
+        .fade-in { animation: fadeIn 0.8s ease-out; }
+        .fade-in-up { animation: fadeInUp 0.8s ease-out; }
 
         /* Navigation */
         nav {
@@ -181,10 +166,12 @@
             z-index: 1000;
             opacity: 0;
             transition: opacity 0.3s ease;
+            pointer-events: none;
         }
 
         .mobile-overlay.active {
             opacity: 1;
+            pointer-events: auto;
         }
 
         /* Hero Section */
@@ -250,6 +237,7 @@
             display: flex;
             gap: 1rem;
             margin-top: 2.5rem;
+            flex-wrap: wrap;
         }
 
         .btn {
@@ -262,6 +250,7 @@
             align-items: center;
             gap: 0.5rem;
             font-size: 1rem;
+            cursor: pointer;
         }
 
         .btn-primary {
@@ -307,7 +296,7 @@
             min-width: 160px;
             box-shadow: 0 8px 30px rgba(0,0,0,0.15);
             border-radius: 15px;
-            z-index: 1;
+            z-index: 2000;
             top: 110%;
             left: 0;
             overflow: hidden;
@@ -327,391 +316,38 @@
             color: white;
         }
 
-        @media (hover: hover) {
-            .cv-dropdown:hover .cv-dropdown-content {
-                display: block;
+        .cv-dropdown-content.show { display: block; }
+
+        /* Improved Mobile Dropdown Placement */
+        @media (max-width: 600px) {
+            .cv-dropdown-content {
+                position: fixed;
+                bottom: 10%;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 80%;
             }
-
-            .cv-dropdown:hover .cv-btn {
-                background: var(--primary);
-                color: white;
-            }
         }
 
-        .cv-dropdown-content.show {
-            display: block;
-        }
-
-        .cv-dropdown-content a:active {
-            background-color: var(--secondary);
-        }
-
-        .hero-image-container {
-            position: relative;
-            width: 400px;
-            height: 400px;
-        }
-
-        .hero-image {
-            width: 100%;
-            height: 100%;
-            border-radius: 30px;
-            object-fit: cover;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-            border: 8px solid white;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .hero-image:hover {
-            transform: scale(1.05);
-            box-shadow: 0 25px 70px rgba(0,0,0,0.2);
-        }
-
-        /* About Section */
-        section {
-            padding: 5rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .section-title {
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--dark);
-            margin-bottom: 1rem;
-        }
-
-        .about-content {
-            background: white;
-            padding: 3rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .about-content p {
-            font-size: 1.15rem;
-            line-height: 1.8;
-            color: var(--dark);
-            margin-bottom: 1.5rem;
-        }
-
-        /* Skills Section */
-        #skills {
-            background: white;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .skill-card {
-            background: linear-gradient(135deg, #f0fdf4 0%, white 100%);
-            padding: 2.5rem;
-            border-radius: 20px;
-            border: 2px solid #e5e7eb;
-            transition: all 0.3s;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        .skill-card.visible {
-            animation: fadeInUp 0.6s ease-out forwards;
-        }
-
-        .skill-card:nth-child(1) { animation-delay: 0.1s; }
-        .skill-card:nth-child(2) { animation-delay: 0.2s; }
-        .skill-card:nth-child(3) { animation-delay: 0.3s; }
-        .skill-card:nth-child(4) { animation-delay: 0.4s; }
-
-        .skill-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 50px rgba(16,185,129,0.15);
-            border-color: var(--primary);
-        }
-
-        .skill-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 1.5rem;
-            color: var(--dark);
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-
-        .skill-icon {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-        }
-
-        .skill-list {
-            list-style: none;
-        }
-
-        .skill-list li {
-            padding: 0.8rem 0;
-            color: var(--dark);
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-
-        .skill-list li:before {
-            content: '✓';
-            color: var(--primary);
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        /* Contact Section */
-        #contact {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            text-align: center;
-            border-radius: 30px;
-            padding: 5rem 2rem;
-            margin: 2rem auto;
-            max-width: 1200px;
-        }
-
-        #contact .section-title {
-            color: white;
-        }
-
-        .contact-methods {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .contact-card {
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(10px);
-            padding: 2rem;
-            border-radius: 20px;
-            min-width: 250px;
-            transition: all 0.3s;
-        }
-
-        .contact-card:hover {
-            background: rgba(255,255,255,0.25);
-            transform: translateY(-5px);
-        }
-
-        .contact-card .icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .contact-card h3 {
-            margin-bottom: 0.5rem;
-            font-size: 1.2rem;
-        }
-
-        .contact-card a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        /* Back to Top Button */
-        .back-to-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(16,185,129,0.4);
-            transition: all 0.3s;
-            z-index: 999;
-        }
-
-        .back-to-top.visible {
-            display: flex;
-        }
-
-        .back-to-top:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(16,185,129,0.5);
-        }
-
-        /* Footer */
-        footer {
-            background: var(--dark);
-            color: white;
-            text-align: center;
-            padding: 3rem 2rem;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .social-link {
-            width: 50px;
-            height: 50px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-decoration: none;
-            font-size: 1.3rem;
-            transition: all 0.3s;
-        }
-
-        .social-link:hover {
-            background: var(--primary);
-            transform: translateY(-3px);
-        }
-
-        /* Responsive */
+        /* Responsive Layout */
         @media (max-width: 968px) {
-            .hero-container {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-image-container {
-                margin: 0 auto;
-                width: 300px;
-                height: 300px;
-            }
-
-            .nav-links {
-                gap: 1.5rem;
-            }
-
-            .section-title {
-                font-size: 2.5rem;
-            }
-
-            .cta-buttons {
-                justify-content: center;
-            }
+            .hero-container { grid-template-columns: 1fr; text-align: center; }
+            .hero-content h1 { font-size: 2.5rem; }
+            .hero-image-container { margin: 0 auto; width: 300px; height: 300px; }
         }
 
         @media (max-width: 600px) {
-            .nav-links {
-                display: none;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .mobile-nav {
-                display: block;
-            }
-
-            .mobile-overlay {
-                display: block;
-            }
-
-            .hero {
-                padding: 6rem 1rem 3rem;
-            }
-
-            .hero-content h1 {
-                font-size: 2rem;
-            }
-
-            .hero-content .subtitle {
-                font-size: 1.2rem;
-            }
-
-            .hero-content p {
-                font-size: 1rem;
-            }
-
-            .hero-image-container {
-                width: 250px;
-                height: 250px;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .cv-dropdown {
-                width: 100%;
-            }
-
-            .cv-btn {
-                width: 100%;
-            }
-
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .about-content {
-                padding: 2rem;
-            }
-
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .contact-methods {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .contact-card {
-                width: 100%;
-                max-width: 300px;
-            }
-
-            #contact {
-                margin: 1rem;
-                padding: 3rem 1.5rem;
-            }
-
-            .back-to-top {
-                bottom: 1rem;
-                right: 1rem;
-            }
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .mobile-nav { display: block; }
+            .mobile-overlay { display: block; }
+            .hero { padding: 6rem 1rem 3rem; }
+            .hero-content h1 { font-size: 2rem; }
+            .hero-content .subtitle { font-size: 1.2rem; }
+            .hero-content p { font-size: 1rem; }
+            .hero-image-container { width: 250px; height: 250px; }
+            .cta-buttons { flex-direction: column; align-items: stretch; }
+            .btn { width: 100%; justify-content: center; }
         }
     </style>
 </head>
@@ -730,10 +366,10 @@
         </div>
     </nav>
 
-    <!-- Mobile Menu Overlay -->
+    <!-- Mobile Overlay -->
     <div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
 
-    <!-- Mobile Menu -->
+    <!-- Mobile Navigation -->
     <div class="mobile-nav" id="mobileNav">
         <div class="mobile-nav-header">
             <div class="logo">Menu</div>
@@ -753,16 +389,14 @@
             <div class="hero-content fade-in-up">
                 <div class="hero-badge">🇳🇵 From Nepal | 🧬 Life Sciences Student</div>
                 <h1>Hi, I'm <span class="highlight">Subodh Niroula</span></h1>
-                <p class="subtitle">Bioinformatics Researcher</p>
-                
+                <p class="subtitle">Bioinformatics and Computational Biology Researcher</p>
                 <p>
-                    I'm an aspiring Ph.D. student in Bioinformatics, passionate about integrating computational and biological sciences to study gene regulation and disease mechanisms. My research interests lie at the intersection of genomics, statistical modeling, and systems biology, with a particular focus on cancer biology and transcriptional regulation.
+                    I'm an aspiring Ph.D. student in Bioinformatics, passionate about integrating computational and biological sciences to study gene regulation and disease mechanisms.
                 </p>
-                
                 <div class="cta-buttons">
                     <a href="#about" class="btn btn-primary">Learn More →</a>
                     <div class="cv-dropdown">
-                        <button class="btn btn-secondary cv-btn" type="button">CV ▼</button>
+                        <button class="btn btn-secondary cv-btn">CV ▼</button>
                         <div class="cv-dropdown-content" id="cvDropdown">
                             <a href="Subodh_CV.pdf" target="_blank">View PDF</a>
                             <a href="Subodh_CV.pdf" download>Download</a>
@@ -770,7 +404,6 @@
                     </div>
                 </div>
             </div>
-            
             <div class="hero-image-container fade-in">
                 <img src="profile.jpg" alt="Subodh Niroula" class="hero-image">
             </div>
@@ -779,183 +412,88 @@
 
     <!-- About Section -->
     <section id="about">
-        <div class="section-header">
-            <h2 class="section-title">About Me</h2>
-        </div>
-        
+        <h2 class="section-title" style="text-align:center;">About Me</h2>
         <div class="about-content">
             <p>
                 I'm Subodh Niroula, a first-generation student from Nepal and a senior Life Sciences undergraduate at Soka University of America.
             </p>
             <p>
-                Currently, I am conducting a comparative transcriptomic analysis of UHRF1's role in osteosarcoma and small-cell lung cancer, focusing on identifying shared and cancer-specific regulatory programs.
+                Currently, I am conducting a comparative transcriptomic analysis of UHRF1's role in osteosarcoma and small-cell lung cancer.
             </p>
             <p>
-                My goal is to lead research that bridges data-driven modeling with biological discovery to improve human health. I aspire to develop computational frameworks that integrate multi-omics data to uncover the molecular mechanisms driving diseases like cancer. By connecting computational innovation with biological insight, I hope to contribute to the advancement of personalized and precision medicine.
+                My goal is to lead research that bridges data-driven modeling with biological discovery to improve human health.
             </p>
         </div>
     </section>
 
     <!-- Skills Section -->
     <section id="skills">
-        <div class="section-header">
-            <h2 class="section-title">Skills</h2>
-        </div>
-        
+        <h2 class="section-title" style="text-align:center;">Skills</h2>
         <div class="skills-grid">
-            <div class="skill-card">
-                <h3><span class="skill-icon">💻</span> Programming</h3>
-                <ul class="skill-list">
-                    <li>Python</li>
-                    <li>R</li>
-                    <li>Bash</li>
-                    <li>SQL</li>
-                </ul>
-            </div>
-            
-            <div class="skill-card">
-                <h3><span class="skill-icon">🧬</span> Bioinformatics & Omics Analysis</h3>
-                <ul class="skill-list">
-                    <li>Transcriptomics</li>
-                    <li>Differential Expression</li>
-                    <li>Pathway Enrichment</li>
-                    <li>Galaxy, Blast</li>
-                </ul>
-            </div>
-            
-            <div class="skill-card">
-                <h3><span class="skill-icon">📊</span> Statistical & Data Analysis</h3>
-                <ul class="skill-list">
-                    <li>Regression</li>
-                    <li>ANOVA</li>
-                    <li>Hypothesis Testing</li>
-                    <li>Data Visualization</li>
-                </ul>
-            </div>
-            
-            <div class="skill-card">
-                <h3><span class="skill-icon">🔬</span> Laboratory Techniques</h3>
-                <ul class="skill-list">
-                    <li>Cell Culture</li>
-                    <li>PCR</li>
-                    <li>Western Blot</li>
-                    <li>CRISPR Knockout Generation</li>
-                </ul>
-            </div>
+            <div class="skill-card"><h3>💻 Programming</h3><ul><li>Python</li><li>R</li><li>Bash</li><li>SQL</li></ul></div>
+            <div class="skill-card"><h3>🧬 Bioinformatics</h3><ul><li>Transcriptomics</li><li>Differential Expression</li><li>Pathway Enrichment</li><li>Galaxy, Blast</li></ul></div>
+            <div class="skill-card"><h3>📊 Statistics</h3><ul><li>Regression</li><li>ANOVA</li><li>Hypothesis Testing</li><li>Visualization</li></ul></div>
+            <div class="skill-card"><h3>🔬 Lab Techniques</h3><ul><li>Cell Culture</li><li>PCR</li><li>Western Blot</li><li>CRISPR KO</li></ul></div>
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Contact -->
     <section id="contact">
         <h2 class="section-title">Let's Connect</h2>
-        <p style="font-size: 1.1rem; margin-top: 1rem; opacity: 0.9;">
-            I'm always open to discussing research opportunities and collaborations
-        </p>
-        
         <div class="contact-methods">
-            <div class="contact-card">
-                <div class="icon">📧</div>
-                <h3>Email</h3>
-                <a href="mailto:sniroula@soka.edu">sniroula@soka.edu</a>
-            </div>
-            <div class="contact-card">
-                <div class="icon">💼</div>
-                <h3>LinkedIn</h3>
-                <a href="https://www.linkedin.com/in/subodhniroula/" target="_blank">View Profile</a>
-            </div>
-            <div class="contact-card">
-                <div class="icon">💻</div>
-                <h3>GitHub</h3>
-                <a href="https://github.com/niroulasubodh" target="_blank">@niroulasubodh</a>
-            </div>
+            <div class="contact-card"><div class="icon">📧</div><h3>Email</h3><a href="mailto:sniroula@soka.edu">sniroula@soka.edu</a></div>
+            <div class="contact-card"><div class="icon">💼</div><h3>LinkedIn</h3><a href="https://www.linkedin.com/in/subodhniroula/" target="_blank">View Profile</a></div>
+            <div class="contact-card"><div class="icon">💻</div><h3>GitHub</h3><a href="https://github.com/niroulasubodh" target="_blank">@niroulasubodh</a></div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <p style="font-size: 1.1rem; margin-bottom: 1rem;">Subodh Niroula</p>
-        <p style="color: #64748b;">&copy; 2025 Subodh Niroula. All rights reserved.</p>
+        <p>© 2025 Subodh Niroula. All rights reserved.</p>
     </footer>
 
-    <!-- Back to Top Button -->
     <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
 
     <script>
-        // CV Dropdown Toggle
+        // CV Dropdown
         const cvBtn = document.querySelector('.cv-btn');
         const cvDropdown = document.getElementById('cvDropdown');
-        
-        if (cvBtn) {
-            cvBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                cvDropdown.classList.toggle('show');
-            });
-        }
-
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.cv-dropdown')) {
-                cvDropdown.classList.remove('show');
-            }
-        });
-
-        // Prevent dropdown from closing when clicking inside
-        cvDropdown.addEventListener('click', function(e) {
+        cvBtn.addEventListener('click', (e) => {
             e.stopPropagation();
+            cvDropdown.classList.toggle('show');
+        });
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.cv-dropdown')) cvDropdown.classList.remove('show');
         });
 
-        // Mobile Menu Toggle
+        // Mobile Menu
         function toggleMobileMenu() {
-            const mobileNav = document.getElementById('mobileNav');
+            const nav = document.getElementById('mobileNav');
             const overlay = document.getElementById('mobileOverlay');
-            mobileNav.classList.toggle('active');
+            nav.classList.toggle('active');
             overlay.classList.toggle('active');
         }
 
         function closeMobileMenu() {
-            const mobileNav = document.getElementById('mobileNav');
-            const overlay = document.getElementById('mobileOverlay');
-            mobileNav.classList.remove('active');
-            overlay.classList.remove('active');
+            document.getElementById('mobileNav').classList.remove('active');
+            document.getElementById('mobileOverlay').classList.remove('active');
         }
 
-        // Back to Top Button
+        // Back to Top
         const backToTop = document.getElementById('backToTop');
-        
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                backToTop.classList.add('visible');
-            } else {
-                backToTop.classList.remove('visible');
-            }
+            if (window.scrollY > 300) backToTop.classList.add('visible');
+            else backToTop.classList.remove('visible');
         });
-
         function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Skill Cards Animation on Scroll
-        const observerOptions = {
-            threshold: 0.2,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
+        // Skill Animation
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.skill-card').forEach(card => {
-            observer.observe(card);
-        });
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.2 });
+        document.querySelectorAll('.skill-card').forEach(card => observer.observe(card));
     </script>
-
 </body>
 </html>
