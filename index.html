@@ -327,15 +327,19 @@
             color: white;
         }
 
-        .cv-dropdown:hover .cv-dropdown-content,
-        .cv-dropdown:focus-within .cv-dropdown-content {
-            display: block;
+        @media (hover: hover) {
+            .cv-dropdown:hover .cv-dropdown-content {
+                display: block;
+            }
+
+            .cv-dropdown:hover .cv-btn {
+                background: var(--primary);
+                color: white;
+            }
         }
 
-        .cv-dropdown:hover .cv-btn,
-        .cv-dropdown:focus-within .cv-btn {
-            background: var(--primary);
-            color: white;
+        .cv-dropdown-content.show {
+            display: block;
         }
 
         .cv-dropdown-content a:active {
@@ -756,9 +760,9 @@
                 </p>
                 
                 <div class="cta-buttons">
-                    <a href="#about" class="btn btn-primary" onclick="smoothScroll(event, '#about')">Learn More →</a>
+                    <a href="#about" class="btn btn-primary">Learn More →</a>
                     <div class="cv-dropdown">
-                        <button class="btn btn-secondary cv-btn" onclick="toggleCVDropdown(event)">CV ▼</button>
+                        <button class="btn btn-secondary cv-btn" type="button">CV ▼</button>
                         <div class="cv-dropdown-content" id="cvDropdown">
                             <a href="Subodh_CV.pdf" target="_blank">View PDF</a>
                             <a href="Subodh_CV.pdf" download>Download</a>
@@ -877,28 +881,28 @@
     <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
 
     <script>
-        // Smooth scroll for anchor links
-        function smoothScroll(e, target) {
-            e.preventDefault();
-            document.querySelector(target).scrollIntoView({
-                behavior: 'smooth'
+        // CV Dropdown Toggle
+        const cvBtn = document.querySelector('.cv-btn');
+        const cvDropdown = document.getElementById('cvDropdown');
+        
+        if (cvBtn) {
+            cvBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                cvDropdown.classList.toggle('show');
             });
-        }
-
-        // CV Dropdown Toggle for mobile
-        function toggleCVDropdown(e) {
-            e.stopPropagation();
-            const dropdown = document.getElementById('cvDropdown');
-            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
         }
 
         // Close dropdown when clicking outside
         document.addEventListener('click', function(e) {
-            const dropdown = document.getElementById('cvDropdown');
-            const cvBtn = document.querySelector('.cv-btn');
-            if (!cvBtn.contains(e.target)) {
-                dropdown.style.display = 'none';
+            if (!e.target.closest('.cv-dropdown')) {
+                cvDropdown.classList.remove('show');
             }
+        });
+
+        // Prevent dropdown from closing when clicking inside
+        cvDropdown.addEventListener('click', function(e) {
+            e.stopPropagation();
         });
 
         // Mobile Menu Toggle
